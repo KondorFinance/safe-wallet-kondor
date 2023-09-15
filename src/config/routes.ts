@@ -21,6 +21,9 @@ export const AppRoutes = {
     nfts: '/balances/nfts',
     index: '/balances',
   },
+  batched: {
+    index: '/batched',
+  },
   newSafe: {
     load: '/new-safe/load',
     create: '/new-safe/create',
