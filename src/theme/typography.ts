@@ -1,9 +1,31 @@
 import type { TypographyOptions } from '@mui/material/styles/createTypography'
 
-const safeFontFamily = 'DM Sans, sans-serif'
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    logo: React.CSSProperties
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    logo?: React.CSSProperties
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    logo: true
+  }
+}
 
 const typography: TypographyOptions = {
-  fontFamily: safeFontFamily,
+  fontFamily: 'DM Sans, sans-serif',
+  logo: {
+    fontSize: '16px',
+    lineHeight: '22px',
+    fontWeight: 400,
+    fontFamily: 'Source Code Pro, monospace',
+  },
   h1: {
     fontSize: '32px',
     lineHeight: '36px',

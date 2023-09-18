@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react'
 import { Paper, Grid, Typography, Button, SvgIcon, Box } from '@mui/material'
 
 import FileIcon from '@/public/images/settings/data/file.svg'
-import ExportIcon from '@/public/images/common/export.svg'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { getPersistedState, useAppSelector } from '@/store'
 import { addressBookSlice, selectAllAddressBooks } from '@/store/addressBookSlice'
 import { addedSafesSlice, selectAllAddedSafes } from '@/store/addedSafesSlice'
 import { safeAppsSlice, selectSafeApps } from '@/store/safeAppsSlice'
 import { selectSettings, settingsSlice } from '@/store/settingsSlice'
-import InfoIcon from '@/public/images/notifications/info.svg'
-import ExternalLink from '@/components/common/ExternalLink'
 import { ImportFileUpload } from '@/components/settings/DataManagement/ImportFileUpload'
 import { ImportDialog } from '@/components/settings/DataManagement/ImportDialog'
 import { SAFE_EXPORT_VERSION } from '@/components/settings/DataManagement/useGlobalImportFileParser'
@@ -20,7 +18,7 @@ import css from './styles.module.css'
 
 const getExportFileName = () => {
   const today = new Date().toISOString().slice(0, 10)
-  return `safe-${today}.json`
+  return `kondor-tmp-${today}.json`
 }
 
 export const exportAppData = () => {
@@ -90,7 +88,7 @@ const DataManagement = () => {
               title={<b>{exportFileName}</b>}
               action={
                 <Button variant="contained" className={css.exportIcon} onClick={exportAppData}>
-                  <SvgIcon component={ExportIcon} inheritViewBox fontSize="small" />
+                  <SvgIcon component={FileDownloadIcon} inheritViewBox fontSize="small" />
                 </Button>
               }
               addedSafes={addedSafes}
@@ -98,20 +96,6 @@ const DataManagement = () => {
               settings={settings}
               safeApps={safeApps}
             />
-            <Typography>
-              <SvgIcon
-                component={InfoIcon}
-                inheritViewBox
-                fontSize="small"
-                color="border"
-                sx={{
-                  verticalAlign: 'middle',
-                  mr: 0.5,
-                }}
-              />
-              You can also export your data from the{' '}
-              <ExternalLink href="https://gnosis-safe.io/app/export">old app</ExternalLink>
-            </Typography>
           </Grid>
         </Grid>
       </Paper>

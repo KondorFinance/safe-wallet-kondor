@@ -55,10 +55,10 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
         <Link href={logoHref} passHref>
           <Grid container spacing={1}>
             <Grid>
-              <KondorLogo alt="Safe logo" />
+              <KondorLogo alt="Kondor[TMP] logo" />
             </Grid>
             <Grid>
-              <Typography>Kondor[TMP]</Typography>
+              <Typography variant="logo">Kondor[TMP]</Typography>
             </Grid>
           </Grid>
         </Link>

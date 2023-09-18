@@ -43,6 +43,8 @@
     "@emotion/react": "^11.10.0",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@fontsource/source-code-pro": "^5.0.8",
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@mui/x-date-pickers": "^5.0.12",
