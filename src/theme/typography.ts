@@ -24,7 +24,7 @@ const typography: TypographyOptions = {
     fontSize: '16px',
     lineHeight: '22px',
     fontWeight: 400,
-    fontFamily: 'Source Code Pro, monospace',
+    fontFamily: 'Roboto Mono, sans-serif',
   },
   h1: {
     fontSize: '32px',
