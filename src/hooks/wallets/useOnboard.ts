@@ -156,6 +156,7 @@ export const useInitOnboard = () => {
 
     const enableWallets = async () => {
       const { getSupportedWallets } = await import('@/hooks/wallets/wallets')
+      console.log(chain)
       const supportedWallets = getSupportedWallets(chain)
       onboard.state.actions.setWalletModules(supportedWallets)
     }

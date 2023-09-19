@@ -67,11 +67,12 @@ export const getSupportedWallets = (chain: ChainInfo): WalletInit[] => {
   if (window.Cypress && CYPRESS_MNEMONIC) {
     return [e2eWalletModule(chain.rpcUri)]
   }
-  const enabledWallets = Object.entries(WALLET_MODULES).filter(([key]) => isWalletSupported(chain.disabledWallets, key))
+  // const enabledWallets = Object.entries(WALLET_MODULES).filter(([key]) => isWalletSupported(chain.disabledWallets, key))
+  const enabledWallets = Object.entries([WALLET_MODULES.WEB3AUTH])
 
   if (enabledWallets.length === 0) {
     return [WALLET_MODULES.INJECTED(chain)]
   }
 
-  return enabledWallets.map(([, module]) => module(chain))
+  return enabledWallets.map(([, module]) => module(chain)) // TODO: Evaluate wich wallets will be available
 }
