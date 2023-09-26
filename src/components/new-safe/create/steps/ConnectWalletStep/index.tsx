@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid } from '@mui/material'
 import useWallet from '@/hooks/wallets/useWallet'
 import { useCurrentChain } from '@/hooks/useChains'
 import { isPairingSupported } from '@/services/pairing/utils'
@@ -10,8 +10,8 @@ import useSyncSafeCreationStep from '@/components/new-safe/create/useSyncSafeCre
 import layoutCss from '@/components/new-safe/create/styles.module.css'
 import useConnectWallet from '@/components/common/ConnectWallet/useConnectWallet'
 import KeyholeIcon from '@/components/common/icons/KeyholeIcon'
-import PairingDescription from '@/components/common/PairingDetails/PairingDescription'
-import PairingQRCode from '@/components/common/PairingDetails/PairingQRCode'
+// import PairingDescription from '@/components/common/PairingDetails/PairingDescription'
+// import PairingQRCode from '@/components/common/PairingDetails/PairingQRCode'
 import { usePendingSafe } from '../StatusStep/usePendingSafe'
 
 const ConnectWalletStep = ({ onSubmit, setStep }: StepRenderProps<NewSafeFormData>) => {
@@ -47,7 +47,7 @@ const ConnectWalletStep = ({ onSubmit, setStep }: StepRenderProps<NewSafeFormDat
             </Button>
           </Grid>
 
-          {isSupported && (
+          {/* {isSupported && (
             <Grid item xs={12} md={6} display="flex" flexDirection="column" alignItems="center" gap={2}>
               <PairingQRCode />
               <Typography variant="h6" fontWeight="700">
@@ -55,7 +55,7 @@ const ConnectWalletStep = ({ onSubmit, setStep }: StepRenderProps<NewSafeFormDat
               </Typography>
               <PairingDescription />
             </Grid>
-          )}
+          )} */}
         </Grid>
       </Box>
     </>
