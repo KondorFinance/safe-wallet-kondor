@@ -8,10 +8,12 @@ import keystoneModule from '@web3-onboard/keystone/dist/index'
 import ledgerModule from '@web3-onboard/ledger/dist/index'
 import trezorModule from '@web3-onboard/trezor'
 import walletConnect from '@web3-onboard/walletconnect'
+import web3authModule from '@web3-onboard/web3auth'
 
 import pairingModule from '@/services/pairing/module'
 import e2eWalletModule from '@/tests/e2e-wallet'
 import { CGW_NAMES, WALLET_KEYS } from './consts'
+import { WEB3AUTH_CLIENT_ID } from '@/config/constants'
 
 const prefersDarkMode = (): boolean => {
   return window?.matchMedia('(prefers-color-scheme: dark)')?.matches
@@ -45,6 +47,7 @@ const WALLET_MODULES: { [key in WALLET_KEYS]: (chain: ChainInfo) => WalletInit }
   [WALLET_KEYS.LEDGER]: () => ledgerModule(),
   [WALLET_KEYS.TREZOR]: () => trezorModule({ appUrl: TREZOR_APP_URL, email: TREZOR_EMAIL }),
   [WALLET_KEYS.KEYSTONE]: () => keystoneModule(),
+  [WALLET_KEYS.WEB3AUTH]: () => web3authModule({ clientId: WEB3AUTH_CLIENT_ID }),
 }
 
 export const getAllWallets = (chain: ChainInfo): WalletInit[] => {
@@ -64,11 +67,12 @@ export const getSupportedWallets = (chain: ChainInfo): WalletInit[] => {
   if (window.Cypress && CYPRESS_MNEMONIC) {
     return [e2eWalletModule(chain.rpcUri)]
   }
-  const enabledWallets = Object.entries(WALLET_MODULES).filter(([key]) => isWalletSupported(chain.disabledWallets, key))
+  // const enabledWallets = Object.entries(WALLET_MODULES).filter(([key]) => isWalletSupported(chain.disabledWallets, key))
+  const enabledWallets = Object.entries([WALLET_MODULES.WEB3AUTH])
 
   if (enabledWallets.length === 0) {
     return [WALLET_MODULES.INJECTED(chain)]
   }
 
-  return enabledWallets.map(([, module]) => module(chain))
+  return enabledWallets.map(([, module]) => module(chain)) // TODO: Evaluate wich wallets will be available
 }

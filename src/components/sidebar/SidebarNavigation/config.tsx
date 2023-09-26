@@ -8,6 +8,7 @@ import ABIcon from '@/public/images/sidebar/address-book.svg'
 import SettingsIcon from '@/public/images/sidebar/settings.svg'
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'
 import HubIcon from '@mui/icons-material/Hub'
+import PaymentsIcon from '@mui/icons-material/Payments'
 import { SvgIcon } from '@mui/material'
 
 export type NavItem = {
@@ -39,7 +40,7 @@ export const paymentsNavItems: NavItem[] = [
   },
   {
     label: 'Batch Payments',
-    icon: <SvgIcon component={AssetsIcon} inheritViewBox />,
+    icon: <SvgIcon component={PaymentsIcon} inheritViewBox />,
     href: AppRoutes.batch.index,
   },
   {
