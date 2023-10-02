@@ -160,7 +160,7 @@ export const pollSafeInfo = async (chainId: string, safeAddress: string): Promis
     maxDelay: 20000,
     numOfAttempts: 19,
     retry: (e) => {
-      console.info('waiting for client-gateway to provide safe information', e)
+      console.info('waiting for client-gateway to provide safe information.', e)
       return true
     },
   })
