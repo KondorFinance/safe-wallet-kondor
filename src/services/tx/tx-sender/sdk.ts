@@ -2,14 +2,14 @@ import { getSafeSDK } from '@/hooks/coreSDK/safeCoreSDK'
 import type Safe from '@safe-global/safe-core-sdk'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 import { ethers } from 'ethers'
-import { isWalletRejection, isHardwareWallet } from '@/utils/wallets'
+import { isWalletRejection } from '@/utils/wallets'
 import { OperationType, type SafeTransaction } from '@safe-global/safe-core-sdk-types'
 import type { SafeInfo } from '@safe-global/safe-gateway-typescript-sdk'
 import { SAFE_FEATURES } from '@safe-global/safe-core-sdk-utils'
 import { hasSafeFeature } from '@/utils/safe-versions'
 import { createWeb3 } from '@/hooks/wallets/web3'
 import { hexValue } from 'ethers/lib/utils'
-import { connectWallet, getConnectedWallet } from '@/hooks/wallets/useOnboard'
+import { getConnectedWallet } from '@/hooks/wallets/useOnboard'
 import { type OnboardAPI } from '@web3-onboard/core'
 import type { ConnectedWallet } from '@/services/onboard'
 import type { JsonRpcSigner } from '@ethersproject/providers'
@@ -30,13 +30,6 @@ export const switchWalletChain = async (onboard: OnboardAPI, chainId: string): P
 
   if (!currentWallet) {
     return null
-  }
-
-  if (isHardwareWallet(currentWallet)) {
-    await onboard.disconnectWallet({ label: currentWallet.label })
-    const wallets = await connectWallet(onboard, { autoSelect: currentWallet.label })
-
-    return wallets ? getConnectedWallet(wallets) : null
   }
 
   const didSwitch = await onboard.setChain({ chainId: hexValue(parseInt(chainId)) })

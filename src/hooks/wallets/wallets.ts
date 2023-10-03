@@ -1,50 +1,52 @@
-import { CYPRESS_MNEMONIC, TREZOR_APP_URL, TREZOR_EMAIL, WC_PROJECT_ID } from '@/config/constants'
 import type { RecommendedInjectedWallets, WalletInit } from '@web3-onboard/common/dist/types.d'
 import type { ChainInfo } from '@safe-global/safe-gateway-typescript-sdk'
 
-import coinbaseModule from '@web3-onboard/coinbase'
-import injectedWalletModule, { ProviderLabel } from '@web3-onboard/injected-wallets'
-import keystoneModule from '@web3-onboard/keystone/dist/index'
-import ledgerModule from '@web3-onboard/ledger/dist/index'
-import trezorModule from '@web3-onboard/trezor'
-import walletConnect from '@web3-onboard/walletconnect'
-
-import pairingModule from '@/services/pairing/module'
-import e2eWalletModule from '@/tests/e2e-wallet'
+import { LOGIN_PROVIDER } from '@toruslabs/openlogin-utils'
+import { ProviderLabel } from '@web3-onboard/injected-wallets'
+import { WALLET_ADAPTERS, type LoginMethodConfig } from '@web3auth/base'
+import web3authModule, { type Web3AuthModuleOptions } from './web3authModule'
 import { CGW_NAMES, WALLET_KEYS } from './consts'
+import { WEB3AUTH_CLIENT_ID } from '@/config/constants'
 
 const prefersDarkMode = (): boolean => {
   return window?.matchMedia('(prefers-color-scheme: dark)')?.matches
 }
 
-const walletConnectV2 = (chain: ChainInfo): WalletInit => {
-  // WalletConnect v2 requires a project ID
-  if (!WC_PROJECT_ID) {
-    return () => null
-  }
+const loginMethods: LoginMethodConfig = {}
 
-  return walletConnect({
-    version: 2,
-    projectId: WC_PROJECT_ID,
-    qrModalOptions: {
-      themeVariables: {
-        '--wcm-z-index': '1302',
-      },
-      themeMode: prefersDarkMode() ? 'dark' : 'light',
-    },
-    requiredChains: [parseInt(chain.chainId)],
-    dappUrl: location.origin,
+Object.values(LOGIN_PROVIDER)
+  .filter((lm) => lm !== LOGIN_PROVIDER.GOOGLE)
+  .map((lm) => {
+    const result = {
+      name: lm,
+      showOnModal: false,
+      showOnDesktop: false,
+      showOnMobile: false,
+    }
+    loginMethods[lm] = result
   })
+
+const web3authOptions: Web3AuthModuleOptions = {
+  authMode: 'WALLET',
+  clientId: WEB3AUTH_CLIENT_ID,
+  uiConfig: {
+    modalZIndex: '1302',
+    appName: 'Kondor[TMP]',
+    primaryButton: 'emailLogin',
+    logoDark: '/images/kondor-logo.png',
+  },
+  modalConfig: {
+    // eslint-disable-next-line prettier/prettier
+    [WALLET_ADAPTERS.OPENLOGIN]: {
+      label: 'openlogin',
+      loginMethods,
+      showOnModal: true,
+    },
+  },
 }
 
 const WALLET_MODULES: { [key in WALLET_KEYS]: (chain: ChainInfo) => WalletInit } = {
-  [WALLET_KEYS.INJECTED]: () => injectedWalletModule(),
-  [WALLET_KEYS.WALLETCONNECT_V2]: (chain) => walletConnectV2(chain),
-  [WALLET_KEYS.COINBASE]: () => coinbaseModule({ darkMode: prefersDarkMode() }),
-  [WALLET_KEYS.PAIRING]: () => pairingModule(),
-  [WALLET_KEYS.LEDGER]: () => ledgerModule(),
-  [WALLET_KEYS.TREZOR]: () => trezorModule({ appUrl: TREZOR_APP_URL, email: TREZOR_EMAIL }),
-  [WALLET_KEYS.KEYSTONE]: () => keystoneModule(),
+  [WALLET_KEYS.WEB3AUTH]: () => web3authModule(web3authOptions),
 }
 
 export const getAllWallets = (chain: ChainInfo): WalletInit[] => {
@@ -61,14 +63,6 @@ export const isWalletSupported = (disabledWallets: string[], walletLabel: string
 }
 
 export const getSupportedWallets = (chain: ChainInfo): WalletInit[] => {
-  if (window.Cypress && CYPRESS_MNEMONIC) {
-    return [e2eWalletModule(chain.rpcUri)]
-  }
   const enabledWallets = Object.entries(WALLET_MODULES).filter(([key]) => isWalletSupported(chain.disabledWallets, key))
-
-  if (enabledWallets.length === 0) {
-    return [WALLET_MODULES.INJECTED(chain)]
-  }
-
   return enabledWallets.map(([, module]) => module(chain))
 }
