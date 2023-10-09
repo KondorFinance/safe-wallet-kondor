@@ -1,11 +1,17 @@
 import { useEffect } from 'react'
-import { getChainsConfig, type ChainInfo } from '@safe-global/safe-gateway-typescript-sdk'
+import { type ChainInfo } from '@safe-global/safe-gateway-typescript-sdk'
 import useAsync, { type AsyncResult } from '../useAsync'
 import { logError, Errors } from '@/services/exceptions'
+import { chains } from '@/utils/availableChains'
+import { IS_TEST_CHAINS } from '@/config/constants'
 
 const getConfigs = async (): Promise<ChainInfo[]> => {
-  const data = await getChainsConfig()
-  return data.results || []
+  // const data = await getChainsConfig()
+  // return data.results || []
+  const testChains = chains.filter((c) => c.chainId === '5')
+  const mainChains = chains.filter((c) => c.chainId === '1' || c.chainId === '137')
+
+  return IS_TEST_CHAINS ? testChains : mainChains
 }
 
 export const useLoadChains = (): AsyncResult<ChainInfo[]> => {
