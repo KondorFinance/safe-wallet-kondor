@@ -15,7 +15,6 @@ import useChainId from '@/hooks/useChainId'
 import KondorLogo from '@/public/images/kondor_logo.svg'
 import Link from 'next/link'
 import useSafeAddress from '@/hooks/useSafeAddress'
-import BatchIndicator from '@/components/batch-payments/BatchIndicator'
 
 type HeaderProps = {
   onMenuToggle?: Dispatch<SetStateAction<boolean>>
@@ -64,12 +63,6 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
           </Grid>
         </Link>
       </div>
-
-      {safeAddress && (
-        <div className={classnames(css.element, css.hideMobile)}>
-          <BatchIndicator onClick={handleBatchToggle} />
-        </div>
-      )}
 
       {/* <div className={css.element}>
         <NotificationCenter />

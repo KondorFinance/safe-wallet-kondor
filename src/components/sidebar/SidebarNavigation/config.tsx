@@ -95,10 +95,6 @@ export const batchPaymentsNavItems = [
     label: 'Create',
     href: AppRoutes.batch.index,
   },
-  {
-    label: 'History',
-    href: AppRoutes.batch.index,
-  },
 ]
 
 export const balancesNavItems = [
