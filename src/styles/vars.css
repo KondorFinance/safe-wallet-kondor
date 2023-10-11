@@ -1,11 +1,11 @@
 /* This file is generated from the MUI theme colors. Do not edit directly. */
 
 :root {
-  --color-text-primary: #121312;
+  --color-text-primary: #030b0e;
   --color-text-secondary: #a1a3a7;
   --color-text-disabled: #dddee0;
   --color-primary-dark: #3c3c3c;
-  --color-primary-main: #121312;
+  --color-primary-main: #030b0e;
   --color-primary-light: #636669;
   --color-secondary-dark: #0fda6d;
   --color-secondary-main: #12ff80;
@@ -35,9 +35,9 @@
   --color-background-paper: #ffffff;
   --color-background-light: #effff4;
   --color-backdrop-main: #636669;
-  --color-logo-main: #121312;
+  --color-logo-main: #030b0e;
   --color-logo-background: #eeeff0;
-  --color-static-main: #121312;
+  --color-static-main: #030b0e;
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;
@@ -56,16 +56,16 @@
   --color-text-primary: #ffffff;
   --color-text-secondary: #636669;
   --color-text-disabled: #636669;
-  --color-primary-dark: #0cb259;
-  --color-primary-main: #12ff80;
-  --color-primary-light: #a1a3a7;
-  --color-secondary-dark: #636669;
+  --color-primary-dark: #468c84;
+  --color-primary-main: #6ad6ca;
+  --color-primary-light: #7cf2e5;
+  --color-secondary-dark: #ff0000;
   --color-secondary-main: #ffffff;
   --color-secondary-light: #12ff80;
   --color-secondary-background: #303033;
   --color-border-main: #636669;
   --color-border-light: #303033;
-  --color-border-background: #121312;
+  --color-border-background: #030b0e;
   --color-error-dark: #ac2c3b;
   --color-error-main: #ff5f72;
   --color-error-light: #ffb4bd;
@@ -77,19 +77,19 @@
   --color-info-dark: #52bfdc;
   --color-info-main: #5fddff;
   --color-info-light: #b7f0ff;
-  --color-info-background: #19252c;
+  --color-info-background: #ff0000;
   --color-warning-dark: #cd674e;
   --color-warning-main: #ff8061;
   --color-warning-light: #ffb7a6;
   --color-warning-background: #2f2318;
-  --color-background-default: #121312;
-  --color-background-main: #121312;
-  --color-background-paper: #1c1c1c;
+  --color-background-default: #030b0e;
+  --color-background-main: #030b0e;
+  --color-background-paper: #10171a;
   --color-background-light: #1b2a22;
   --color-backdrop-main: #636669;
   --color-logo-main: #ffffff;
   --color-logo-background: #303033;
-  --color-static-main: #121312;
+  --color-static-main: #030b0e;
 }
 
 /* The same as above for the brief moment before JS loads */
@@ -98,16 +98,16 @@
     --color-text-primary: #ffffff;
     --color-text-secondary: #636669;
     --color-text-disabled: #636669;
-    --color-primary-dark: #0cb259;
-    --color-primary-main: #12ff80;
-    --color-primary-light: #a1a3a7;
-    --color-secondary-dark: #636669;
+    --color-primary-dark: #468c84;
+    --color-primary-main: #6ad6ca;
+    --color-primary-light: #7cf2e5;
+    --color-secondary-dark: #ff0000;
     --color-secondary-main: #ffffff;
     --color-secondary-light: #12ff80;
     --color-secondary-background: #303033;
     --color-border-main: #636669;
     --color-border-light: #303033;
-    --color-border-background: #121312;
+    --color-border-background: #030b0e;
     --color-error-dark: #ac2c3b;
     --color-error-main: #ff5f72;
     --color-error-light: #ffb4bd;
@@ -119,18 +119,18 @@
     --color-info-dark: #52bfdc;
     --color-info-main: #5fddff;
     --color-info-light: #b7f0ff;
-    --color-info-background: #19252c;
+    --color-info-background: #ff0000;
     --color-warning-dark: #cd674e;
     --color-warning-main: #ff8061;
     --color-warning-light: #ffb7a6;
     --color-warning-background: #2f2318;
-    --color-background-default: #121312;
-    --color-background-main: #121312;
-    --color-background-paper: #1c1c1c;
+    --color-background-default: #030b0e;
+    --color-background-main: #030b0e;
+    --color-background-paper: #10171a;
     --color-background-light: #1b2a22;
     --color-backdrop-main: #636669;
     --color-logo-main: #ffffff;
     --color-logo-background: #303033;
-    --color-static-main: #121312;
+    --color-static-main: #030b0e;
   }
 }

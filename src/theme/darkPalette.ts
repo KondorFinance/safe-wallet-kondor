@@ -10,7 +10,7 @@ const darkPalette = {
     light: '#7CF2E5',
   },
   secondary: {
-    dark: '#FF0000',
+    dark: '#468C84',
     main: '#FFFFFF',
     light: '#12FF80',
     background: '#303033',
@@ -36,7 +36,7 @@ const darkPalette = {
     dark: '#52BFDC',
     main: '#5FDDFF',
     light: '#B7F0FF',
-    background: '#FF0000',
+    background: '#1F2920',
   },
   warning: {
     dark: '#CD674E',
