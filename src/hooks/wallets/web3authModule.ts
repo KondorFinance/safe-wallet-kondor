@@ -2,6 +2,8 @@ import type { Chain, EIP1193Provider, ProviderAccounts, WalletInit } from '@web3
 
 import type { Web3AuthOptions, ModalConfig } from '@web3auth/modal'
 import type { CustomChainConfig } from '@web3auth/base'
+import { TorusWalletConnectorPlugin } from '@web3auth/torus-wallet-connector-plugin'
+import { TorusWalletAdapter } from '@web3auth/torus-evm-adapter'
 
 export type Web3AuthModuleOptions = Omit<Web3AuthOptions, 'chainConfig'> & {
   chainConfig?: Partial<CustomChainConfig> & Pick<CustomChainConfig, 'chainNamespace'>
@@ -52,8 +54,29 @@ function web3auth(options: Web3AuthModuleOptions): WalletInit {
           ? (web3authCoreOptions.uiConfig = { modalZIndex: modalZIndex })
           : (web3authCoreOptions.uiConfig.modalZIndex = modalZIndex)
       }
-      // TODO: Change web3AuthNetwork to be dynamic
-      let web3auth = new Web3Auth({ web3AuthNetwork: 'sapphire_devnet', ...web3authCoreOptions })
+      console.log('web3auth connected to ', web3authCoreOptions.web3AuthNetwork)
+      let web3auth = new Web3Auth(web3authCoreOptions)
+      const torusPlugin = new TorusWalletConnectorPlugin({
+        torusWalletOpts: {
+          buttonPosition: 'bottom-right',
+        },
+        walletInitOptions: {
+          whiteLabel: {
+            theme: { isDark: true, colors: { primary: '#00a8ff' } },
+            logoDark: 'https://web3auth.io/images/w3a-L-Favicon-1.svg',
+            logoLight: 'https://web3auth.io/images/w3a-D-Favicon-1.svg',
+          },
+          useWalletConnect: true,
+          enableLogging: true,
+        },
+      })
+      await web3auth.addPlugin(torusPlugin)
+      const torusWalletAdapter = new TorusWalletAdapter({
+        clientId: web3authCoreOptions.clientId,
+      })
+
+      // it will add/update  the torus-evm adapter in to web3auth class
+      web3auth.configureAdapter(torusWalletAdapter)
       await web3auth.initModal({ modalConfig: modalConfig })
 
       let provider: EIP1193Provider
@@ -84,14 +107,30 @@ function web3auth(options: Web3AuthModuleOptions): WalletInit {
             if (!chain) throw new Error('Chain must be set before switching')
             currentChain = chain
 
-            // TODO: Change web3AuthNetwork to be dynamic
             // re-instantiate instance with new network
             web3auth = new Web3Auth({
               ...web3authCoreOptions,
               ...getChainConfig(currentChain),
-              web3AuthNetwork: 'sapphire_devnet',
             })
-            console.log(' re-instancia boludo ')
+            const torusPlugin = new TorusWalletConnectorPlugin({
+              torusWalletOpts: {
+                buttonPosition: 'bottom-right',
+              },
+              walletInitOptions: {
+                whiteLabel: {
+                  theme: { isDark: true, colors: { primary: '#00a8ff' } },
+                  logoDark: 'https://web3auth.io/images/w3a-L-Favicon-1.svg',
+                  logoLight: 'https://web3auth.io/images/w3a-D-Favicon-1.svg',
+                },
+                useWalletConnect: true,
+                enableLogging: true,
+              },
+            })
+            await web3auth.addPlugin(torusPlugin)
+            const torusWalletAdapter = new TorusWalletAdapter({
+              clientId: web3authCoreOptions.clientId,
+            })
+            web3auth.configureAdapter(torusWalletAdapter)
             await web3auth.initModal({ modalConfig: modalConfig })
 
             web3AuthProvider = await web3auth.connect()

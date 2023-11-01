@@ -1,12 +1,13 @@
 import type { RecommendedInjectedWallets, WalletInit } from '@web3-onboard/common/dist/types.d'
 import type { ChainInfo } from '@safe-global/safe-gateway-typescript-sdk'
 
+import type { OPENLOGIN_NETWORK_TYPE } from '@toruslabs/openlogin-utils'
 import { LOGIN_PROVIDER } from '@toruslabs/openlogin-utils'
 import { ProviderLabel } from '@web3-onboard/injected-wallets'
 import { WALLET_ADAPTERS, type LoginMethodConfig } from '@web3auth/base'
 import web3authModule, { type Web3AuthModuleOptions } from './web3authModule'
 import { CGW_NAMES, WALLET_KEYS } from './consts'
-import { WEB3AUTH_CLIENT_ID } from '@/config/constants'
+import { WEB3AUTH_CLIENT_ID, WEB3AUTH_NETWORK } from '@/config/constants'
 
 const prefersDarkMode = (): boolean => {
   return window?.matchMedia('(prefers-color-scheme: dark)')?.matches
@@ -29,6 +30,7 @@ Object.values(LOGIN_PROVIDER)
 const web3authOptions: Web3AuthModuleOptions = {
   authMode: 'WALLET',
   clientId: WEB3AUTH_CLIENT_ID,
+  web3AuthNetwork: WEB3AUTH_NETWORK as OPENLOGIN_NETWORK_TYPE,
   uiConfig: {
     modalZIndex: '1302',
     appName: 'Kondor[TMP]',
