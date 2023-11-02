@@ -102,7 +102,6 @@ function web3auth(options: Web3AuthModuleOptions): WalletInit {
           },
 
           wallet_switchEthereumChain: async ({ params }) => {
-            console.log('######### chain switching ########')
             const chain = chains.find(({ id }) => id === params[0].chainId)
             if (!chain) throw new Error('Chain must be set before switching')
             currentChain = chain
